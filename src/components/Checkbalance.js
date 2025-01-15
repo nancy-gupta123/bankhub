@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import image from '../utils/30456.jpg';
 
 const Checkbalance = () => {
   const [formData, setFormData] = useState({});
@@ -52,7 +53,7 @@ const Checkbalance = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:8080/balance",
+        "http://3.89.64.48:8080/balance",
         requestOptions
       );
       const result = await response.json();
@@ -64,7 +65,17 @@ const Checkbalance = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100 bg-gradient-to-r from-gray-900 via-gray-600 to-gray-300">
+    <div
+      style={{
+        backgroundImage: `url(${image})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <div className="w-full max-w-md p-6 bg-white rounded-md shadow-md">
       <h2 className="mb-6 text-xl font-semibold text-center text-gray-700">
           Check Your Balance

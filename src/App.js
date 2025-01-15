@@ -20,7 +20,7 @@ function App() {
         <Route path="/"element={<Dashboard1/>}></Route>
         <Route path="/account"element={<Register/>}></Route>
         <Route path="/login"element={<Login/>}></Route>
-        <Route path="/dashboard"element={isAuthenticated?<Dashboard/>:<Navigate to="/login"/>}></Route>
+        <Route path="/dashboard"element={<Dashboard/>}></Route>
         <Route path="/transactionhistory1"element={<Transactionhistory/>}></Route>
         <Route path="/LoginCredentials"element={<LoginCredentials/>}></Route>
         <Route path="/logout"element={<Logout/>}></Route>

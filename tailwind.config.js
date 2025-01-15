@@ -7,7 +7,16 @@ module.exports = {
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        darkgray: '#1A1A1D',
+        iconcolor:'#3B1C32',
+        cardbody:'#1A1A1D',
+        
+        // Add your custom color here
+      },
+
+    },
   },
   plugins: [
     require('tailwind-scrollbar'),

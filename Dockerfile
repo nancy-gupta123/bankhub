@@ -17,16 +17,16 @@ COPY . .
 RUN npm run build
 
 # Use a minimal image for production
-FROM node:18-alpine AS runner
+#FROM node:18-alpine AS runner
 
 # Set the working directory
-WORKDIR /app
+#WORKDIR /app
 
 # Copy the build output and dependencies from the builder stage
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
+#COPY --from=builder /app/package*.json ./
+#COPY --from=builder /app/node_modules ./node_modules
+#COPY --from=builder /app/.next ./.next
+#COPY --from=builder /app/public ./public
 
 # Expose the Next.js default port
 EXPOSE 3000

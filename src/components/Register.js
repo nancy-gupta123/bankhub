@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { register } from "../services/authService";
-import {bgurl} from  "../utils/constant";
+
 import { useNavigate } from 'react-router-dom';
+import image from '../utils/30456.jpg';
 
 
 
 const Register = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -14,13 +16,33 @@ const Register = () => {
   });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+
+  
   useEffect(() => {
+    const loadPage = setTimeout(() => {
+      setIsLoading(false); 
+    }, 3000); 
+  
+    
     setFormData((prevFormData) => ({
       ...prevFormData,
       pinCode: "",
-      email: "",
+      email:"",
     }));
-  }, []);
+    
+    return () => clearTimeout(loadPage);
+  },
+     []);
+  // useEffect(() => {
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     pinCode: "",
+  //     email:"",
+  //   }));
+  // }, []);
+
+  
+
 
   
 
@@ -31,7 +53,14 @@ const Register = () => {
       ...prevData,
       [name]: value,
     }));
+    // setFormData((prevFormData) => ({
+    //   ...prevFormData,
+    //   pinCode: "",
+    //   email: "",
+    // }));
   };
+    
+  
 
 
 
@@ -56,18 +85,30 @@ const Register = () => {
       }
     }
   };
-  useEffect(() => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      pinCode: "",
-      email:"",
-    }));
-  }, []);
+  
+
+
+  if (isLoading) {
+    
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        
+        color: 'white',
+        fontSize: '20px',
+      }}>
+         <iframe src="https://lottie.host/embed/569fbf3f-881a-445a-9ca0-639ae1e52343/oWvIeYkhVT.lottie"></iframe>
+      </div>
+    );
+  }
   
   return (
     
     <div style={{
-      backgroundImage: `url(${bgurl})`,
+      backgroundImage: `url(${image})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       minHeight: '100vh', 
@@ -78,14 +119,15 @@ const Register = () => {
       
       <div style={{
       padding: "30px",
+      backgroundColor: "#1A1A1D",
       paddingTop:"10px",
-      marginTop:"300px",
+      marginTop:"100px",
       borderRadius: "15px",
       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
       width: "100%",
       maxWidth: "400px",
     }} className="bg-gray-900">
-      <h2 style={{ textAlign: "center", marginBottom: "20px" }} className="text-2xl font-bold">Register</h2>
+      <h2 style={{ textAlign: "center", marginBottom: "20px" }} className="text-3xl font-bold text-white">Register</h2>
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: "15px" }}>
         <input className="bg-white "
@@ -119,6 +161,7 @@ const Register = () => {
           }}
         />
         </div>
+        
         <div style={{ marginBottom: "15px" }}>
         <input
           type="password"
@@ -150,12 +193,28 @@ const Register = () => {
             borderRadius: "5px",
           }}
         /></div>
+        <div style={{ marginBottom: "15px" }}>
+        <input
+          type="text"
+          name="userName"
+          placeholder="User Name"
+          value={formData.userName}
+          onChange={handleChange}
+          style={{
+            width: "100%",
+            padding: "10px",
+            fontSize: "16px",
+            border: "1px solid #ccc",
+            borderRadius: "5px",
+          }}
+        />
+        </div>
         <button type="submit"
         style={{
           width: "100%",
           padding: "10px",
           fontSize: "16px",
-          backgroundColor: "#007BFF",
+          backgroundColor: "#3B1C32",
           color: "#fff",
           border: "none",
           borderRadius: "5px",

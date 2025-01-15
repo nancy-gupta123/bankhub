@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
+import image from '../utils/30456.jpg';
 
 const Transactionhis = () => {
     const [formData,setFormData]=useState({});
@@ -54,7 +55,7 @@ const requestOptions = {
 };
 
 try{
-const response=await fetch("http://localhost:8080/transaction/history", requestOptions)
+const response=await fetch("http://3.89.64.48:8080/transaction/history", requestOptions)
 if (!response.ok) {
     const errorData = await response.json();
     setErrorMessage(errorData.message || "Failed to fetch transaction history.");
@@ -71,9 +72,19 @@ if (!response.ok) {
 }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-gray-900 via-gray-600 to-gray-300 flex items-center justify-center px-4">
-        <div className="bg-white shadow-lg rounded-lg p-6 max-w-lg w-full">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+    <div
+      style={{
+        backgroundImage: `url(${image})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+        <div className="w-full max-w-lg p-6 rounded-lg shadow-lg bg-darkgray">
+        <h2 className="pb-5 mb-4 text-3xl font-bold text-center text-white">
           Transaction History
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -84,19 +95,19 @@ if (!response.ok) {
               value={formData?.pinCode || ""}
               onChange={handleChange}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"/>
-            <button type="submit" className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">Submit</button>
+            <button type="submit" className="w-full px-4 py-2 text-white transition duration-300 rounded-lg bg-iconcolor hover:">Submit</button>
             </form>
             {errorMessage && (
-        <p className="text-red-500 text-center mt-4">{errorMessage}</p>
+        <p className="mt-4 text-center text-red-500">{errorMessage}</p>
       )}
       {transactionDetails && (
         <div className="mt-6">
-          <h3 className="text-lg font-semibold text-gray-700 mb-2 text-center">Transaction History:</h3>
+          <h3 className="mb-2 text-lg font-semibold text-center text-white">Transaction History:</h3>
           <ul className="space-y-4">
             {transactionDetails.map((transaction, index) => (
               <li
                 key={index}
-                className="p-4 bg-gray-100 border rounded-lg shadow-sm transition transform hover:scale-105 hover:shadow-md"
+                className="p-4 transition transform bg-gray-100 border rounded-lg shadow-sm hover:scale-105 hover:shadow-md"
               >
                 <p><strong>Transaction ID:</strong> {transaction.transactionId}</p>
                 <p><strong>From Account:</strong> {transaction.fromAccount}</p>

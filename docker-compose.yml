@@ -1,0 +1,11 @@
+services:
+  backend:
+    image: kubeprashant798/gobank
+    ports:
+      - "8080:8080"
+
+  frontend:
+    image: priyankagupta2403/bankhub
+    ports:
+      - "3000:3000"
+      

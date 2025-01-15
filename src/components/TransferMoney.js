@@ -1,4 +1,5 @@
 import { useState } from "react";
+import image from '../utils/30456.jpg';
 
 const TransferMoney = () => {
   const [transferData, setTransferData] = useState({
@@ -83,7 +84,7 @@ const TransferMoney = () => {
         redirect: "follow",
       };
 
-      const response=await fetch("http://localhost:8080/transaction", requestOptions)
+      const response=await fetch("http://3.89.64.48:8080/transaction", requestOptions)
       if (!response.ok) {
         const errorData = await response.json();
         setErrorMessage(errorData.message || "Transaction failed.");
@@ -109,11 +110,21 @@ const TransferMoney = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-600 to-gray-300 px-4 sm:px-6 lg:px-8">
-    <form onSubmit={handleTransfer} className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
-    <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">Transfer Money</h2>
+    <div
+      style={{
+        backgroundImage: `url(${image})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+    <form onSubmit={handleTransfer} className="w-full max-w-md p-6 rounded-lg shadow-md bg-darkgray">
+    <h2 className="pb-5 mb-4 text-3xl font-bold text-center text-white">Transfer Money</h2>
     <div className="mb-4">
-    <label className="block text-gray-700 font-medium mb-2" htmlFor="toAccount">
+    <label className="block mb-2 font-medium text-white" htmlFor="toAccount">
       Recipient Account Number
     </label>
       <input
@@ -129,7 +140,7 @@ const TransferMoney = () => {
       </div>
 
     <div className="mb-4">
-    <label className="block text-gray-700 font-medium mb-2" htmlFor="pinCode">
+    <label className="block mb-2 font-medium text-white" htmlFor="pinCode">
       Pin Code
     </label>
       <input
@@ -138,11 +149,12 @@ const TransferMoney = () => {
        placeholder="Pin Code"
        value={transferData.pinCode}
        onChange={handleChange}
+       className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         required
       />
       </div>
-    <div className="mb-4">
-    <label className="block text-gray-700 font-medium mb-2" htmlFor="amount">
+    <div className="pb-5 mb-4">
+    <label className="block mb-2 font-medium text-white" htmlFor="amount">
       Amount
     </label>
       <input
@@ -151,16 +163,16 @@ const TransferMoney = () => {
         placeholder="Amount"
         value={transferData.amount}
         onChange={handleChange}
-        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 "
         required
       />
       </div>
-      <button type="submit" className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors">Transfer Money</button>
-      {errorMessage && <p  className="text-red-500 text-sm mt-3 text-center">{errorMessage}</p>}
+      <button type="submit" className="w-full py-3 text-white transition-colors rounded-lg bg-iconcolor hover: ">Transfer Money</button>
+      {errorMessage && <p  className="mt-3 text-sm text-center text-red-500">{errorMessage}</p>}
 
       {transactionDetails && (
-        <div className="mt-6 p-4 bg-gray-100 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold text-gray-800">Transaction Details</h3>
+        <div className="p-4 mt-6 bg-gray-100 rounded-lg shadow-md">
+          <h3 className="text-lg font-semibold text-white">Transaction Details</h3>
           <ul className="mt-3 space-y-2">
             <li><strong>Transaction ID:</strong> {transactionDetails.transactionId}</li>
             <li><strong>From Account:</strong> {transactionDetails.fromAccount}</li>

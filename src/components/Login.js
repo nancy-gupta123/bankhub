@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
+import image from '../utils/30456.jpg';
 
-import { bgurl } from "../utils/constant";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [Message, setMessage] = useState("");
+  const [lazyloading,setlazyloading]=useState(true);
+  const navigate = useNavigate();
   const { loading, error } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState({ accountNumber: "", pinCode: "" });
   useEffect(() => {
+    const setload=setTimeout(()=>{
+      setlazyloading(false)
+    },3000)
     const storedAccountNumber = localStorage.getItem("accountnumber");
     const storedpinCode = localStorage.getItem("pinCode");
     if (storedAccountNumber && storedpinCode) {
@@ -17,6 +23,8 @@ const Login = () => {
         pinCode: storedpinCode,
       }));
     }
+    
+    return ()=>clearTimeout(setload)
   }, []);
 
   const handleChange = (e) => {
@@ -30,80 +38,88 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Validate form fields
     if (!formData.accountNumber || !formData.pinCode) {
       setMessage("All fields are required.");
       return;
     }
-
+  
     try {
-      //console.log(`PIN Code: ${formData.pinCode.toString()}`);
+      // Prepare payload
       const payload = {
         accountNumber: parseInt(formData.accountNumber, 10), // Ensure conversion to an integer
         pinCode: formData.pinCode.toString(), // Ensure PIN is a string
       };
-
-      //console.log("Payload:", payload);
-      localStorage.setItem("Logincred:", JSON.stringify(payload));
-
-      //console.log(localStorage.getItem("Logincred:"));
-
-      // Dispatch login action with payload
+  
+      // Store credentials locally
+      localStorage.setItem("Logincred", JSON.stringify(payload));
+  
+      // Prepare headers and request options
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
-
-      const raw = JSON.stringify({
-        accountNumber: 332359450,
-        pinCode: "123456",
-      });
-
+  
       const requestOptions = {
         method: "POST",
         headers: myHeaders,
         body: JSON.stringify(payload),
         redirect: "follow",
       };
-
-      try {
-        const response = await fetch(
-          "http://localhost:8080/login",
-          requestOptions
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const contentType = response.headers.get("content-type");
-        if (contentType && contentType.includes("application/json")) {
-          const result = await response.json();
-          localStorage.setItem("accessToken", JSON.stringify(result));
-          
-          
-        } else {
-          const text = await response.text();
-          throw new Error(`Unexpected response: ${text}`);
-        }
-      } catch (error) {
-        console.error("Fetch error:", error); // Handle any errors
+  
+      // Perform the fetch call
+      const response = await fetch("http://3.89.64.48:8080/login", requestOptions);
+  
+      // Check if the response is okay
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Login failed: ${errorText}`);
       }
-
-      //localStorage.setItem("loginData", JSON.stringify(result));
-
-      setMessage("Login Successful");
-      window.location.href = "/dashboard";
+  
+      // Check response content type
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        const result = await response.json();
+        localStorage.setItem("accessToken", JSON.stringify(result));
+        setMessage("Login Successful");
+        console.log("Login Successful");
+        localStorage.setItem("Logincred", JSON.stringify(payload))
+        console.log(localStorage.getItem("Logincred"));
+        // Redirect to the dashboard
+        navigate('/dashboard')
+      } else {
+        const text = await response.text();
+        throw new Error(`Unexpected response format: ${text}`);
+      }
     } catch (error) {
-      // Log the error and set a user-friendly message
+      // Log and display the error
       console.error("Error during login:", error);
-      setMessage(error.message || "An err98765r occurred.");
+      setMessage(error.message || "An error occurred during login.");
     }
   };
+  
+  
+  if (lazyloading) {
+    
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        
+        color: 'white',
+        fontSize: '20px',
+      }}>
+         <iframe src="https://lottie.host/embed/569fbf3f-881a-445a-9ca0-639ae1e52343/oWvIeYkhVT.lottie"></iframe>
+      </div>
+    );
+  }
+  
 
   return (
     <div
       style={{
-        backgroundImage: `url(${bgurl})`,
+        backgroundImage: `url(${image})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         minHeight: "100vh",
@@ -114,10 +130,10 @@ const Login = () => {
     >
       <div
         style={{
-          backgroundColor: "rgba(255, 255, 255, 0.9)",
+          backgroundColor: "#1A1A1D",
           padding: "30px",
           paddingTop: "10px",
-          marginTop: "200px",
+          marginTop: "100px",
           borderRadius: "15px",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
           width: "100%",
@@ -126,7 +142,7 @@ const Login = () => {
       >
         <h2
           style={{ textAlign: "center", marginBottom: "20px" }}
-          className="text-2xl font-bold"
+          className="text-3xl font-bold text-white"
         >
           Login
         </h2>
@@ -169,7 +185,7 @@ const Login = () => {
               width: "100%",
               padding: "10px",
               fontSize: "16px",
-              backgroundColor: "#007BFF",
+              backgroundColor: "#3B1C32",
               color: "#fff",
               border: "none",
               borderRadius: "5px",
