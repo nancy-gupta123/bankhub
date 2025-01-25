@@ -1,5 +1,5 @@
 
-const API_URL='http://3.89.64.48:8080';
+const API_URL='http://34.236.99.219:8080';
 export const register=async (data)=>{
     try {
         const response = await fetch(`${API_URL}/account`, {
@@ -32,7 +32,7 @@ export const register=async (data)=>{
 export const login = async (data) => {
   console.log(data)
   try {
-    const response = await fetch("http://184.72.138.55:8080/login", {
+    const response = await fetch("http://34.236.99.219:8080/login", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
