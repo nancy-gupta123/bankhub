@@ -21,25 +21,25 @@ jobs:
                 tags: ${{secrets.DOCKER_USER_NAME}}/bankhub
             - name: Log Out of Dockerhub 
               run: docker logout  
-    deploy:
-        needs: build
-        runs-on: self-hosted
+    # deploy:
+    #     needs: build
+    #     runs-on: self-hosted
 
-        steps:
-          - name: Check out
-            uses: actions/checkout@v4
-          - name: back to root folder
-            run: cd 
-          - name: deleting everything
-            run: docker compose down
-          - name: free up memory
-            run: |
-             docker rmi -f teamdualite/ai-server 
-             docker rmi -f nginx    
-          - name: pull fresh image
-            run: docker compose pull 
-          - name: running again
-            run: docker compose up --remove-orphans -d              
+    #     steps:
+    #       - name: Check out
+    #         uses: actions/checkout@v4
+    #       - name: back to root folder
+    #         run: cd 
+    #       - name: deleting everything
+    #         run: docker compose down
+    #       - name: free up memory
+    #         run: |
+    #          docker rmi -f teamdualite/ai-server 
+    #          docker rmi -f nginx    
+    #       - name: pull fresh image
+    #         run: docker compose pull 
+    #       - name: running again
+    #         run: docker compose up --remove-orphans -d              
         
 
 
