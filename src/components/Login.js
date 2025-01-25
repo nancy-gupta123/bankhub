@@ -10,7 +10,11 @@ const Login = () => {
   const navigate = useNavigate();
   const { loading, error } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState({ accountNumber: "", pinCode: "" });
+  const [form,setform]=useState({accountNumber:""})
   useEffect(() => {
+
+    const res=localStorage.getItem('accountnumber');
+    setform(res)
     const setload=setTimeout(()=>{
       setlazyloading(false)
     },3000)
@@ -74,6 +78,8 @@ const Login = () => {
         const errorText = await response.text();
         throw new Error(`Login failed: ${errorText}`);
       }
+
+      
   
       // Check response content type
       const contentType = response.headers.get("content-type");
@@ -152,7 +158,7 @@ const Login = () => {
               type="number"
               name="accountNumber"
               placeholder="Account Number"
-              value={formData.accountNumber}
+              value={form}
               onChange={handleChange}
               style={{
                 width: "100%",

@@ -17,6 +17,7 @@ export const register=async (data)=>{
     
         const responseData = await response.json();
         console.log(responseData);
+        localStorage.setItem('accountnumber', responseData.accountNumber)
     
         
         if (responseData.token) {
