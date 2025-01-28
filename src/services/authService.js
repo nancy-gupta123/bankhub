@@ -1,6 +1,6 @@
 
 const API_URL='http://34.236.99.219:8080';
-export const register=async (data)=>{
+export const Register=async (data)=>{
     try {
         const response = await fetch(`${API_URL}/account`, {
           method: 'POST',

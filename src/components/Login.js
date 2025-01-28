@@ -158,7 +158,7 @@ const Login = () => {
               type="number"
               name="accountNumber"
               placeholder="Account Number"
-              value={form}
+              value={formData.accountNumber}
               onChange={handleChange}
               style={{
                 width: "100%",
