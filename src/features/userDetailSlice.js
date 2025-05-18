@@ -5,7 +5,7 @@ export const showUser = createAsyncThunk(
     "auth/showUser",
     async (args, { rejectWithValue }) => {
       const response = await fetch(
-        "http://34.236.99.219:8080/account",
+        "https://bank-backend-production-a1aa.up.railway.app/account",
         { method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export const showUser = createAsyncThunk(
     async (data, { rejectWithValue }) => {
       console.log("data", data);
       const response = await fetch(
-      "http://34.236.99.219:8080/login",
+      "https://bank-backend-production-a1aa.up.railway.app/login",
         {
           method: "POST",
           headers: {
