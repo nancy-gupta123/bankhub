@@ -71,7 +71,7 @@ const Login = () => {
       };
   
       // Perform the fetch call
-      const response = await fetch("http://34.236.99.219:8080/login", requestOptions);
+      const response = await fetch("https://bank-backend-production-a1aa.up.railway.app/login", requestOptions);
   
       // Check if the response is okay
       if (!response.ok) {
