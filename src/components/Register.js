@@ -72,7 +72,7 @@ const Register = () => {
       };
 
       const response = await fetch(
-        "http://34.236.99.219:8080/account",
+        "https://bank-backend-production-a1aa.up.railway.app/account",
         requestOptions
       );
       console.log(response)
