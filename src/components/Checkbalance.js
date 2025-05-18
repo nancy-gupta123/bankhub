@@ -53,7 +53,7 @@ const Checkbalance = () => {
 
     try {
       const response = await fetch(
-        "http://34.236.99.219:8080/balance",
+        "https://bank-backend-production-a1aa.up.railway.app/balance",
         requestOptions
       );
       const result = await response.json();
