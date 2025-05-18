@@ -1,5 +1,5 @@
 
-const API_URL='http://34.236.99.219:8080';
+const API_URL='https://bank-backend-production-a1aa.up.railway.app';
 export const Register=async (data)=>{
     try {
         const response = await fetch(`${API_URL}/account`, {
