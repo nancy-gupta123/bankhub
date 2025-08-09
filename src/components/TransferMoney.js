@@ -84,7 +84,7 @@ const TransferMoney = () => {
         redirect: "follow",
       };
 
-      const response=await fetch("https://bank-backend-production-a1aa.up.railway.app/transaction", requestOptions)
+      const response=await fetch("http://13.51.242.117:8080/transaction", requestOptions)
       if (!response.ok) {
         const errorData = await response.json();
         setErrorMessage(errorData.message || "Transaction failed.");
