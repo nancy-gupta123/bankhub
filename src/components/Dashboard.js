@@ -21,7 +21,7 @@ const Dashboard = () => {
     const timer=setTimeout(()=>{
       setlazyloading(false)
     },3000)
-    fetch(`https://bank-backend-production-a1aa.up.railway.app/account`)
+    fetch(`http://13.51.242.117:8080/account`)
       .then((response) => response.json())
       .then((data) => setuserdata(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -81,7 +81,7 @@ const Dashboard = () => {
       // Fetch new token when Learn More is clicked
       const logincred = localStorage.getItem("Logincred");
       console.log(logincred)
-      const response = await fetch("https://bank-backend-production-a1aa.up.railway.app/login", {
+      const response = await fetch("http://13.51.242.117:8080/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
